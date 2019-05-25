@@ -1,0 +1,164 @@
+body {
+    font-family: 'arial', sans-serif;
+    font-size: 12px;
+    line-height: 18px;
+    color: #142328;
+    font-weight: normal;
+    text-align: left;
+}
+
+ul,
+li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 40px;
+    font-size: 20px;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    background-color: #00ade4;
+    border: none;
+    border-radius: 3px;
+}
+
+.container,
+.page-main {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.page-header {
+    background-color: #000000;
+}
+
+.header__logo {
+    padding: 23px 0;
+    width: 230px;
+}
+
+.goods__item {
+    display: flex;
+    margin-top: 50px;
+}
+
+.goods__img-wrap {
+    width: 127px;
+}
+
+.goods__text-wrap {
+    width: 50%;
+    margin: 15px 50px;
+}
+
+.goods__text {}
+
+.goods__price-wrap {
+    margin-top: 50px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.goods__price-wrap {
+    width: 200px;
+}
+
+.goods__price {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.goods__button {
+    display: inline-block;
+}
+
+.page-footer {
+    width: 100%;
+    min-height: 127px;
+    background-color: #10546b;
+    padding: 0 10px;
+    margin: 0 auto;
+}
+
+.basket {
+    width: 227px;
+    border: 2px solid #d4d4d4;
+    border-radius: 5px;
+    padding: 15px;
+    min-height: 210px;
+}
+
+.basket__img {
+    width: 90px;
+    display: flex;
+    align-items: center;
+}
+
+.basket__text {
+    margin: 0 16px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.basket__item {
+    display: flex;
+    position: relative;
+    margin: 30px 0;
+}
+
+.basket__item-img {
+    width: 11px;
+    position: absolute;
+    top: 3px;
+}
+
+.basket__item-text,
+.basket__item-price {
+    color: #000000
+}
+
+.basket__item-text {
+    margin-left: 14px;
+    min-width: 100px;
+}
+
+.basket__item-price {
+    font-weight: bold;
+    margin-left: auto;
+}
+
+.basket__summ {
+    text-align: right;
+}
+
+.basket__summ-text,
+.basket__summ-number {
+    display: inline-block;
+    color: #000000;
+}
+
+.basket__summ-number {
+    font-weight: bold;
+}
+
+.basket__button {
+    background: #29d807;
+    padding: 10px 10px;
+    width: 200px;
+    margin-top: 30px;
+}
