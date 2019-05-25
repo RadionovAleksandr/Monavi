@@ -34,7 +34,8 @@
             catalogElement.querySelector('.goods__title').textContent = cardData[i].cardTitle;
             catalogElement.querySelector('.goods__text').textContent = cardData[i].cardText;
             catalogElement.querySelector('.goods__price').textContent = cardData[i].cardPrice;
-            catalogElement.querySelector('.goods__button').classList.add('data-id="' + i + '"');
+            catalogElement.querySelector('.goods__button').dataset.id = i;
+
             fragment.appendChild(catalogElement);
         }
         ListElement.appendChild(fragment);
