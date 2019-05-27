@@ -62,8 +62,10 @@
         var basketItem = document.querySelectorAll('.basket__item');
         console.log(btnClose);
         console.log(basketItem);
+
         for (i = 0; i < basketItem.length; i++) {
             btnClose[i].addEventListener('click', onButtonClose);
+            console.log(btnClose[i]);
         };
     };
 
@@ -74,21 +76,26 @@
     };
 
     //удаление элемента корзины
-    var onButtonClose = function() {
-        console.log('close по' + i + 'элементу');
-        // удаляю  элемент коллекции , удаляю все элементы корзины и обновляю корзину новой коллекцией
-        console.log(basket);
-        basket.splice(i - 2, 1);
-        console.log(basket);
-        createBasketItem();
+    var onButtonClose = function(evt) {
+        var btnClose = document.querySelectorAll('.basket__item-img');
+        var id = evt.target.dataset.id;
+        for (i = 0; i < btnClose.length; i++) {
+            if (btnClose[i].dataset.id === id) {
+                console.log('close по' + i + 'элементу');
+                // удаляю  элемент коллекции , удаляю все элементы корзины и обновляю корзину новой коллекцией
+                console.log(basket);
+                basket.splice(id, 1);
+                console.log(basket);
+                createBasketItem();
+            }
+        }
         for (i = 0; i < basketItem.length; i++) {
             var btnClose = document.querySelectorAll('.basket__item-img');
             btnClose[i].addEventListener('click', onButtonClose);
         };
-
     }
 
-    //удаление элемента корзины
+    //создание массива для корзины
     var getElementBasket = function(i) {
         basket.push(cardData[i]);
         console.log(basket);
@@ -105,6 +112,7 @@
             var basketElement = cardTemplate.cloneNode(true);
             basketElement.querySelector('.basket__item-text').textContent = basket[i].cardTitle;
             basketElement.querySelector('.basket__item-price').textContent = basket[i].cardPrice;
+            basketElement.querySelector('.basket__item-img').dataset.id = i;
             basketfragment.appendChild(basketElement);
             basketList.appendChild(basketfragment);
         };
