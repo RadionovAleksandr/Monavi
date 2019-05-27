@@ -61,7 +61,6 @@
         createBasketItem();
         busketSum(basket); // В планах было написать проверку суммы при удалении элемента корзины
         // saveToStorage(); // Должна сохранять данные в localStorage и подставлять в корзину после проверки, 
-        //если localStorage = true, то записываем элементы массива корзины в элементы корзины, если false то создаем пустой массив
 
         //вешаю слушатель на кнопку закрыть
         var btnClose = document.querySelectorAll('.basket__item-img');
