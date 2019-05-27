@@ -118,7 +118,7 @@
 
     //считаем общую сумму корзины покупок
     function busketSum(array) {
-        var busketSum = document.querySelector('busket__summ-number')
+        var busketSum = document.querySelector('.busket__summ-number')
         var sum = 0;
         for (var i = 0; i < array.length; i++) {
             sum += -(array[i].cardPrice); //привожу к типу данных number и суммирую по циклу
