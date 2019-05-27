@@ -7,25 +7,28 @@
     var basketfragment = document.createDocumentFragment();
     var basket = [];
     var cardData = [{
+            id: 0,
             cardImg: "img/коробка1.jpg",
             cardTitle: "Пакет видеопрограмм",
-            cardText: "Пакет лучших программ для работы с видео! Редактируйте на монтажном столе. Конвертируйте в любые форматы. Создавайте слайд-шоу. Нарезайте видео. Захватывайте видео с экрана, камер и ТВ-тюнера. Записывайте DVD и диски Blu-ray.",
-            cardPrice: "1990 "
+            cardPrice: "1990 ",
+            cardText: "Пакет лучших программ для работы с видео! Редактируйте на монтажном столе. Конвертируйте в любые форматы. Создавайте слайд-шоу. Нарезайте видео. Захватывайте видео с экрана, камер и ТВ-тюнера. Записывайте DVD и диски Blu-ray."
         },
         {
+            id: 1,
             cardImg: "img/коробка2.jpg",
             cardTitle: "Пакет видеопрограмм",
-            cardText: "Пакет лучших программ для работы с видео! Редактируйте на монтажном столе. Конвертируйте в любые форматы. Создавайте слайд-шоу. Нарезайте видео. Захватывайте видео с экрана, камер и ТВ-тюнера. Записывайте DVD и диски Blu-ray.",
-            cardPrice: "2590 "
+            cardPrice: "2590 ",
+            cardText: "Пакет лучших программ для работы с видео! Редактируйте на монтажном столе. Конвертируйте в любые форматы. Создавайте слайд-шоу. Нарезайте видео. Захватывайте видео с экрана, камер и ТВ-тюнера. Записывайте DVD и диски Blu-ray."
         },
         {
+            id: 2,
             cardImg: "img/коробка3.jpg",
             cardTitle: "Пакет видеопрограмм",
-            cardText: "Пакет лучших программ для работы с видео! Редактируйте на монтажном столе. Конвертируйте в любые форматы. Создавайте слайд-шоу. Нарезайте видео. Захватывайте видео с экрана, камер и ТВ-тюнера. Записывайте DVD и диски Blu-ray.",
-            cardPrice: "1590 "
+            cardPrice: "1590 ",
+            cardText: "Пакет лучших программ для работы с видео! Редактируйте на монтажном столе. Конвертируйте в любые форматы. Создавайте слайд-шоу. Нарезайте видео. Захватывайте видео с экрана, камер и ТВ-тюнера. Записывайте DVD и диски Blu-ray."
+
         }
     ];
-
 
     //ф-ия создания карточек каталога
     var createCard = function(create) {
@@ -37,7 +40,7 @@
             catalogElement.querySelector('.goods__title').textContent = cardData[i].cardTitle;
             catalogElement.querySelector('.goods__text').textContent = cardData[i].cardText;
             catalogElement.querySelector('.goods__price').textContent = cardData[i].cardPrice;
-            catalogElement.querySelector('.goods__button').dataset.id = i;
+            catalogElement.querySelector('.goods__button').dataset.id = cardData[i].id;
 
             fragment.appendChild(catalogElement);
         }
@@ -56,8 +59,9 @@
         var id = evt.target.dataset.id;
         getElementBasket(id);
         createBasketItem();
-        localStorage.setItem("BasketElements", basket);
-        console.log(basket);
+        busketSum(basket); // В планах было написать проверку суммы при удалении элемента корзины
+        // saveToStorage(); // Должна сохранять данные в localStorage и подставлять в корзину после проверки, 
+        //если localStorage = true, то записываем элементы массива корзины в элементы корзины, если false то создаем пустой массив
 
         //вешаю слушатель на кнопку закрыть
         var btnClose = document.querySelectorAll('.basket__item-img');
@@ -65,7 +69,6 @@
 
         for (i = 0; i < basketItem.length; i++) {
             btnClose[i].addEventListener('click', onButtonClose);
-            console.log(btnClose[i]);
         };
     };
 
@@ -93,18 +96,8 @@
         };
     }
 
-    // var storage = localStorage.getItem("BasketElements");
-    // if (storage) {
-    //     basket = storage;
-    // } else {
-    //     var basket = [];
-    // };
-
-    // JSON.parse
-
     //создание массива для корзины
     var getElementBasket = function(i) {
-        console.log(basket);
         basket.push(cardData[i]);
     };
 
@@ -113,7 +106,6 @@
         while (basketList.firstChild) {
             basketList.removeChild(basketList.firstChild)
         };
-        console.log('функция добавления корзины');
         for (i = 0; i < basket.length; i++) {
             var cardTemplate = document.querySelector('#basketItem');
             var basketElement = cardTemplate.cloneNode(true);
@@ -124,4 +116,16 @@
             basketList.appendChild(basketfragment);
         };
     }
+
+    //считаем общую сумму корзины покупок
+    function busketSum(array) {
+        var busketSum = document.querySelector('busket__summ-number')
+        var sum = 0;
+        for (var i = 0; i < array.length; i++) {
+            sum += -(array[i].cardPrice); //привожу к типу данных number и суммирую по циклу
+            busketSum.textContent = sum; //выдает ошибку, не может прочитать св-во textContent
+        }
+        return (busketSum)
+    }
+
 })();

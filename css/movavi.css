@@ -180,6 +180,7 @@ a {
 
 .basket {
     position: fixed;
-    right: 20px;
+    right: 0;
     top: 50px;
+    background: #fff;
 }
