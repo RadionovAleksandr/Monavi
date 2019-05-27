@@ -6,7 +6,7 @@
     <title>Monavi</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/monavi.css">
+    <link rel="stylesheet" href="css/movavi.css">
 </head>
 
 <body>
@@ -20,46 +20,53 @@
         </div>
     </header>
     <main class="page-main">
-        <section class="goods"></section>
-        <div id="clone" style="display: none">
-            <div class="goods__item" id="card">
-                <div class="goods__img-wrap">
-                    <img class="goods__img" src="img/коробка1.jpg" alt="товар">
-                </div>
-                <div class="goods__text-wrap">
-                    <h3 class="goods__title">Пакет видеопрограмм</h3>
-                    <p class="goods__text">
-                        ipsumloreumipsumloreumipsumloreumipsumloreumipsumloreumipsumloreum
-                    </p>
-                </div>
-                <div class="goods__price-wrap">
-                    <div class="goods__price">
-                        Цена
+        <section class="goods">
+            <div id="clone" style="display: none">
+                <div class="goods__item" id="card">
+                    <div class="goods__img-wrap">
+                        <img class="goods__img" src="img/коробка1.jpg" alt="товар">
                     </div>
-                    <button class="goods__button button">В корзину!</button>
+                    <div class="goods__text-wrap">
+                        <h3 class="goods__title">Пакет видеопрограмм</h3>
+                        <p class="goods__text">
+                            ipsumloreumipsumloreumipsumloreumipsumloreumipsumloreumipsumloreum
+                        </p>
+                    </div>
+                    <div class="goods__button-wrap">
+                        <div class="goods__price-wrap">
+                            <div class="goods__price">Цена</div><span class="goods__currency">руб.</span>
+                        </div>
+                        <button class="goods__button button">В корзину!</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
         <section class="basket">
             <div class="basket__img">
                 <img src="img/корзина_img.png" alt="корзина">
                 <div class="basket__text">Корзина</div>
             </div>
-            <div class="basket__item">
-                <img class="basket__item-img" src="img/крестик.png" alt="Кнопка закрыть">
-                <div class="basket__item-text">Название товара</div>
-                <div class="basket__item-price">Цена товара</div>
+            <div class="basketList">
             </div>
             <div class="basket__summ">
                 <div class="basket__summ-text">Всего:</div>
-                <div class="basket__summ-number">сумма руб.</div>
+                <div class="basket__summ-wrap">
+                    <div class="basket__summ-number">сумма</div><span class="basket__summ-currency">руб.</span>
+                </div>
             </div>
             <a href="" class="basket__button button">Оформить заказ</a>
         </section>
     </main>
     <footer class="page-footer">
     </footer>
-    <script src="js/monavi.js"></script>
+    <div class="basket-wrap" style="display: none">
+        <div class="basket__item" id="basketItem">
+            <img class="basket__item-img" src="img/крестик.png" alt="Кнопка закрыть">
+            <div class="basket__item-text">Название товара</div>
+            <div class="basket__item-price">Цена товара</div>
+        </div>
+    </div>
+    <script src="js/movavi-2.js"></script>
 </body>
 
 </html>

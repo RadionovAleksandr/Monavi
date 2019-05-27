@@ -65,22 +65,27 @@ a {
     margin: 15px 50px;
 }
 
-.goods__text {}
-
-.goods__price-wrap {
+.goods__button-wrap {
+    width: 200px;
     margin-top: 50px;
     margin-bottom: 10px;
     text-align: center;
     font-weight: bold;
 }
 
-.goods__price-wrap {
-    width: 200px;
-}
-
-.goods__price {
+.goods__price,
+.goods__currency {
     margin-bottom: 20px;
     font-size: 24px;
+}
+
+.goods__currency {
+    margin-left: 5px;
+}
+
+.goods__price-wrap {
+    display: flex;
+    justify-content: center;
 }
 
 .goods__button {
@@ -144,12 +149,22 @@ a {
 
 .basket__summ {
     text-align: right;
+    display: flex;
 }
 
 .basket__summ-text,
-.basket__summ-number {
+.basket__summ-number,
+.basket__summ-currency {
     display: inline-block;
     color: #000000;
+}
+
+.basket__summ-wrap {
+    margin-left: auto;
+}
+
+.basket__summ-currency {
+    margin-left: 7px;
 }
 
 .basket__summ-number {
@@ -161,4 +176,11 @@ a {
     padding: 10px 10px;
     width: 200px;
     margin-top: 30px;
+}
+
+.basket {
+    position: fixed;
+    right: 0;
+    top: 50px;
+    background: #fff;
 }
