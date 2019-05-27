@@ -10,21 +10,22 @@
             cardImg: "img/коробка1.jpg",
             cardTitle: "Пакет видеопрограмм",
             cardText: "Пакет лучших программ для работы с видео! Редактируйте на монтажном столе. Конвертируйте в любые форматы. Создавайте слайд-шоу. Нарезайте видео. Захватывайте видео с экрана, камер и ТВ-тюнера. Записывайте DVD и диски Blu-ray.",
-            cardPrice: "1990 руб"
+            cardPrice: "1990 "
         },
         {
             cardImg: "img/коробка2.jpg",
             cardTitle: "Пакет видеопрограмм",
             cardText: "Пакет лучших программ для работы с видео! Редактируйте на монтажном столе. Конвертируйте в любые форматы. Создавайте слайд-шоу. Нарезайте видео. Захватывайте видео с экрана, камер и ТВ-тюнера. Записывайте DVD и диски Blu-ray.",
-            cardPrice: "2590 руб"
+            cardPrice: "2590 "
         },
         {
             cardImg: "img/коробка3.jpg",
             cardTitle: "Пакет видеопрограмм",
             cardText: "Пакет лучших программ для работы с видео! Редактируйте на монтажном столе. Конвертируйте в любые форматы. Создавайте слайд-шоу. Нарезайте видео. Захватывайте видео с экрана, камер и ТВ-тюнера. Записывайте DVD и диски Blu-ray.",
-            cardPrice: "1590 руб"
+            cardPrice: "1590 "
         }
     ];
+
 
     //ф-ия создания карточек каталога
     var createCard = function(create) {
@@ -52,16 +53,15 @@
 
     //ф-ия отрисовки и удаления элемента в корзине
     var onButtonClick = function(evt) {
-        // debugger
         var id = evt.target.dataset.id;
         getElementBasket(id);
         createBasketItem();
+        localStorage.setItem("BasketElements", basket);
+        console.log(basket);
 
         //вешаю слушатель на кнопку закрыть
         var btnClose = document.querySelectorAll('.basket__item-img');
         var basketItem = document.querySelectorAll('.basket__item');
-        console.log(btnClose);
-        console.log(basketItem);
 
         for (i = 0; i < basketItem.length; i++) {
             btnClose[i].addEventListener('click', onButtonClose);
@@ -69,6 +69,7 @@
         };
     };
 
+    //Слушатель на кнопку "В корзину"
     for (var i = 0; i < buttons.length; i++) {
         if (buttons) {
             buttons[i].addEventListener('click', onButtonClick);
@@ -81,11 +82,8 @@
         var id = evt.target.dataset.id;
         for (i = 0; i < btnClose.length; i++) {
             if (btnClose[i].dataset.id === id) {
-                console.log('close по' + i + 'элементу');
                 // удаляю  элемент коллекции , удаляю все элементы корзины и обновляю корзину новой коллекцией
-                console.log(basket);
                 basket.splice(id, 1);
-                console.log(basket);
                 createBasketItem();
             }
         }
@@ -95,10 +93,19 @@
         };
     }
 
+    // var storage = localStorage.getItem("BasketElements");
+    // if (storage) {
+    //     basket = storage;
+    // } else {
+    //     var basket = [];
+    // };
+
+    // JSON.parse
+
     //создание массива для корзины
     var getElementBasket = function(i) {
-        basket.push(cardData[i]);
         console.log(basket);
+        basket.push(cardData[i]);
     };
 
     //обновление DOM
