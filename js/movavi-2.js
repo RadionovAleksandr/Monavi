@@ -59,7 +59,7 @@
         var id = evt.target.dataset.id;
         getElementBasket(id);
         createBasketItem();
-        busketSum(basket); // В планах было написать проверку суммы при удалении элемента корзины
+        basketSum(basket); // В планах было написать проверку суммы при удалении элемента корзины
         // saveToStorage(); // Должна сохранять данные в localStorage и подставлять в корзину после проверки, 
 
         //вешаю слушатель на кнопку закрыть
@@ -117,14 +117,14 @@
     }
 
     //считаем общую сумму корзины покупок
-    function busketSum(array) {
-        var busketSum = document.querySelector('.busket__summ-number')
+    function basketSum(array) {
+        var basketSum = document.querySelector('.basket__summ-number')
         var sum = 0;
         for (var i = 0; i < array.length; i++) {
             sum += -(array[i].cardPrice); //привожу к типу данных number и суммирую по циклу
-            busketSum.textContent = sum; //выдает ошибку, не может прочитать св-во textContent
+            basketSum.textContent = sum;
         }
-        return (busketSum)
+        return (basketSum)
     }
 
 })();
