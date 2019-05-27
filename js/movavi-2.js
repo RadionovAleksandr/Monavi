@@ -81,6 +81,10 @@
         basket.splice(i - 2, 1);
         console.log(basket);
         createBasketItem();
+        for (i = 0; i < basketItem.length; i++) {
+            var btnClose = document.querySelectorAll('.basket__item-img');
+            btnClose[i].addEventListener('click', onButtonClose);
+        };
 
     }
 
