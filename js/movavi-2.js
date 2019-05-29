@@ -58,7 +58,7 @@
         var id = evt.target.dataset.id;
         getElementBasket(id);
         createBasketItem();
-        basketSum(basket); // В планах было написать проверку суммы при удалении элемента корзины
+        basketSum(basket);
         // saveToStorage(); // Должна сохранять данные в localStorage и подставлять в корзину после проверки, 
 
         //вешаю слушатель на кнопку закрыть
@@ -120,10 +120,11 @@
     function basketSum(array) {
         var basketSum = document.querySelector('.basket__summ-number')
         var sum = 0;
+        console.log(array);
         for (var i = 0; i < array.length; i++) {
             sum += array[i].cardPrice;
-            basketSum.textContent = sum;
         }
+        basketSum.textContent = sum;
         return (basketSum)
     }
 })();
