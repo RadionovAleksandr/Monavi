@@ -1,9 +1,6 @@
 'use strict';
+
 (function() {
-    var ListElement = document.querySelector('.goods');
-    var fragment = document.createDocumentFragment();
-    var basketList = document.querySelector('.basketList');
-    var basketfragment = document.createDocumentFragment();
     var basket = [];
     var cardData = [{
             id: 0,
@@ -28,26 +25,32 @@
         }
     ];
 
+
     //Ф-ия  отрисовывает элементы корзины ссылаясь на элементы коллекции "basket"
     var createBasketItem = function() {
+        var basketList = document.querySelector('.basketList');
         while (basketList.firstChild) {
             basketList.removeChild(basketList.firstChild)
         };
-        for (i = 0; i < basket.length; i++) {
-            var cardTemplate = document.querySelector('#basketItem');
-            var basketElement = cardTemplate.cloneNode(true);
-            basketElement.querySelector('.basket__item-text').textContent = basket[i].cardTitle;
-            basketElement.querySelector('.basket__item-price').textContent = basket[i].cardPrice;
-            basketElement.querySelector('.basket__item-img').dataset.id = i;
-            basketfragment.appendChild(basketElement);
-            basketList.appendChild(basketfragment);
-        };
+        basket.forEach(function(basketItem, index) {
+            // for (i = 0; i < basket.length; i++) {
+            var basketItem = makeElement('div', 'basket__item');
+            basketList.appendChild(basketItem);
+            var itemImg = makeElement('img', 'basket__item-img');
+            itemImg.src = 'img/крестик.png';
+            itemImg.alt = 'Кнопка закрыть';
+            basketItem.appendChild(itemImg);
+            var itemText = makeElement('div', 'basket__item-text', basket[index].cardTitle);
+            basketItem.appendChild(itemText);
+            var itemPrice = makeElement('div', 'basket__item-price', basket[index].cardPrice);
+            basketItem.appendChild(itemPrice);
+            basketItem.querySelector('.basket__item-img').dataset.id = index;
+        })
     }
 
     //ф-ия получает из localStorage данные
     var getToStorage = function() {
         var returnBasket = JSON.parse(localStorage.getItem("products")) //спарсим его обратно объект
-        console.log(returnBasket);
         if (returnBasket) {
             basket = returnBasket;
             createBasketItem()
@@ -62,27 +65,48 @@
         localStorage.setItem("products", serialBasket); //запишем в хранилище по ключу "products"
     }
 
-    //ф-ия создания карточек каталога
-    var createCard = function(create) {
-        var cardTemplate = document.querySelector('#card')
 
-        for (var i = 0; i < create; i++) {
-            var catalogElement = cardTemplate.cloneNode(true);
-            catalogElement.querySelector('.goods__img').srcset = cardData[i].cardImg;
-            catalogElement.querySelector('.goods__title').textContent = cardData[i].cardTitle;
-            catalogElement.querySelector('.goods__text').textContent = cardData[i].cardText;
-            catalogElement.querySelector('.goods__price').textContent = cardData[i].cardPrice;
-            catalogElement.querySelector('.goods__button').dataset.id = cardData[i].id;
-            fragment.appendChild(catalogElement);
+
+    // ф-ия создает элементы для вставки в DOM
+    var makeElement = function(tagName, className, text) {
+        var element = document.createElement(tagName);
+        element.classList.add(className);
+        if (text) {
+            element.textContent = text;
         }
-        ListElement.appendChild(fragment);
-    }
-
-    // Предварительно проерив localStorage создаю карточки каталога
-    if (ListElement) {
-        getToStorage();
-        createCard(cardData.length);
+        return element;
     };
+
+    // Предварительно проверив localStorage создаю карточки каталога
+    getToStorage();
+    //ф-ия создания карточек каталога
+    cardData.forEach(function(cardDataItem, index) {
+        var ListElement = document.querySelector('.goods');
+        var cardContainer = makeElement('div', 'goods__item');
+        ListElement.appendChild(cardContainer);
+        var imgWrap = makeElement('div', 'goods__img-wrap');
+        cardContainer.appendChild(imgWrap);
+        var img = makeElement('img', 'goods__img');
+        img.src = cardDataItem.cardImg;
+        imgWrap.appendChild(img);
+        var textWrap = makeElement('div', 'goods__text-wrap');
+        cardContainer.appendChild(textWrap);
+        var title = makeElement('h3', 'goods__title', cardDataItem.cardTitle);
+        textWrap.appendChild(title);
+        var text = makeElement('p', 'goods__text', cardDataItem.cardText);
+        textWrap.appendChild(text);
+        var buttonWrap = makeElement('div', 'goods__button-wrap');
+        cardContainer.appendChild(buttonWrap);
+        var priceWrap = makeElement('div', 'goods__price-wrap');
+        buttonWrap.appendChild(priceWrap);
+        var price = makeElement('div', 'goods__price', cardDataItem.cardPrice);
+        priceWrap.appendChild(price);
+        var button = makeElement('button', 'goods__button', 'В корзину!');
+        button.classList.add('button');
+        buttonWrap.appendChild(button);
+        cardContainer.querySelector('.goods__button').dataset.id = index;
+    });
+
 
     //ф-ия отрисовки обновленных элементов в коллекции "basket" и навешивание слушателя на обновленные элементы basket."закрыть"
     var onButtonClick = function(evt) {
@@ -91,10 +115,8 @@
         createBasketItem();
         saveToStorage(); //запишем в localStorage обновленный список 
         basketSum(basket); //обновляем общую сумму
-        for (i = 0; i < basketItem.length; i++) {
-            var btnClose = document.querySelectorAll('.basket__item-img');
-            btnClose[i].addEventListener('click', onButtonClose);
-        };
+        onlistenerClose();
+
     };
 
     //Слушатель на кнопку "В корзину"
