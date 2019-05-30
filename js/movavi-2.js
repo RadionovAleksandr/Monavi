@@ -1,5 +1,4 @@
 'use strict';
-
 (function() {
     var ListElement = document.querySelector('.goods');
     var fragment = document.createDocumentFragment();
@@ -29,78 +28,7 @@
         }
     ];
 
-    //ф-ия создания карточек каталога
-    var createCard = function(create) {
-        var cardTemplate = document.querySelector('#card')
-
-        for (var i = 0; i < create; i++) {
-            var catalogElement = cardTemplate.cloneNode(true);
-            catalogElement.querySelector('.goods__img').srcset = cardData[i].cardImg;
-            catalogElement.querySelector('.goods__title').textContent = cardData[i].cardTitle;
-            catalogElement.querySelector('.goods__text').textContent = cardData[i].cardText;
-            catalogElement.querySelector('.goods__price').textContent = cardData[i].cardPrice;
-            catalogElement.querySelector('.goods__button').dataset.id = cardData[i].id;
-
-            fragment.appendChild(catalogElement);
-        }
-        ListElement.appendChild(fragment);
-    }
-
-    //создаю карточки каталога
-    if (ListElement) {
-        createCard(cardData.length);
-    };
-
-    var buttons = document.querySelectorAll('.goods__button');
-
-    //ф-ия отрисовки и удаления элемента в корзине
-    var onButtonClick = function(evt) {
-        var id = evt.target.dataset.id;
-        getElementBasket(id);
-        createBasketItem();
-        basketSum(basket);
-        // saveToStorage(); // Должна сохранять данные в localStorage и подставлять в корзину после проверки, 
-
-        //вешаю слушатель на кнопку закрыть
-        var btnClose = document.querySelectorAll('.basket__item-img');
-        var basketItem = document.querySelectorAll('.basket__item');
-
-        for (i = 0; i < basketItem.length; i++) {
-            btnClose[i].addEventListener('click', onButtonClose);
-        };
-    };
-
-    //Слушатель на кнопку "В корзину"
-    for (var i = 0; i < buttons.length; i++) {
-        if (buttons) {
-            buttons[i].addEventListener('click', onButtonClick);
-        };
-    };
-
-    //удаление элемента корзины
-    var onButtonClose = function(evt) {
-        var btnClose = document.querySelectorAll('.basket__item-img');
-        var id = evt.target.dataset.id;
-        for (i = 0; i < btnClose.length; i++) {
-            if (btnClose[i].dataset.id === id) {
-                // удаляю  элемент коллекции , удаляю все элементы корзины и обновляю корзину новой коллекцией
-                basket.splice(id, 1);
-                createBasketItem();
-                basketSum(basket);
-            }
-        }
-        for (i = 0; i < basketItem.length; i++) {
-            var btnClose = document.querySelectorAll('.basket__item-img');
-            btnClose[i].addEventListener('click', onButtonClose);
-        };
-    }
-
-    //создание массива для корзины
-    var getElementBasket = function(i) {
-        basket.push(cardData[i]);
-    };
-
-    //обновление DOM
+    //Ф-ия  отрисовывает элементы корзины ссылаясь на элементы коллекции "basket"
     var createBasketItem = function() {
         while (basketList.firstChild) {
             basketList.removeChild(basketList.firstChild)
@@ -116,11 +44,101 @@
         };
     }
 
-    //считаем общую сумму корзины покупок
+    //ф-ия получает из localStorage данные
+    var getToStorage = function() {
+        var returnBasket = JSON.parse(localStorage.getItem("products")) //спарсим его обратно объект
+        console.log(returnBasket);
+        if (returnBasket) {
+            basket = returnBasket;
+            createBasketItem()
+            basketSum(basket)
+        } else {
+            console.log('LocalStorage пустой');
+        }
+    }
+
+    var saveToStorage = function() {
+        var serialBasket = JSON.stringify(basket); //сериализуем 
+        localStorage.setItem("products", serialBasket); //запишем в хранилище по ключу "products"
+    }
+
+    //ф-ия создания карточек каталога
+    var createCard = function(create) {
+        var cardTemplate = document.querySelector('#card')
+
+        for (var i = 0; i < create; i++) {
+            var catalogElement = cardTemplate.cloneNode(true);
+            catalogElement.querySelector('.goods__img').srcset = cardData[i].cardImg;
+            catalogElement.querySelector('.goods__title').textContent = cardData[i].cardTitle;
+            catalogElement.querySelector('.goods__text').textContent = cardData[i].cardText;
+            catalogElement.querySelector('.goods__price').textContent = cardData[i].cardPrice;
+            catalogElement.querySelector('.goods__button').dataset.id = cardData[i].id;
+            fragment.appendChild(catalogElement);
+        }
+        ListElement.appendChild(fragment);
+    }
+
+    // Предварительно проерив localStorage создаю карточки каталога
+    if (ListElement) {
+        getToStorage();
+        createCard(cardData.length);
+    };
+
+    //ф-ия отрисовки обновленных элементов в коллекции "basket" и навешивание слушателя на обновленные элементы basket."закрыть"
+    var onButtonClick = function(evt) {
+        var id = evt.target.dataset.id;
+        basket.push(cardData[id]); //добавляет элементы в коллекцию корзины "basket"
+        createBasketItem();
+        saveToStorage(); //запишем в localStorage обновленный список 
+        basketSum(basket); //обновляем общую сумму
+        for (i = 0; i < basketItem.length; i++) {
+            var btnClose = document.querySelectorAll('.basket__item-img');
+            btnClose[i].addEventListener('click', onButtonClose);
+        };
+    };
+
+    //Слушатель на кнопку "В корзину"
+    var buttons = document.querySelectorAll('.goods__button');
+    for (var i = 0; i < buttons.length; i++) {
+        if (buttons) {
+            buttons[i].addEventListener('click', onButtonClick);
+        };
+    };
+
+    //ф-ия удаляет элемент из коллекции "basket" и отрисовывает обновленную коллекцию в элементы корзины
+    var onButtonClose = function(evt) {
+        var btnClose = document.querySelectorAll('.basket__item-img');
+        var id = evt.target.dataset.id;
+        for (i = 0; i < btnClose.length; i++) {
+            if (btnClose[i].dataset.id === id) {
+                basket.splice(id, 1); // удаляю  элемент коллекции
+                saveToStorage(); //запишем в localStorage обновленный список 
+                getToStorage();
+                createBasketItem();
+                basketSum(basket);
+            }
+        }
+        //вешаю слушатель на обновленные элементы коллекции basket."закрыть"
+        onlistenerClose()
+    }
+
+    //ф-ия вешает слушатель на кнопку "закрыть"
+    var onlistenerClose = function() {
+        var btnClose = document.querySelectorAll('.basket__item-img');
+
+        for (i = 0; i < btnClose.length; i++) {
+            if (btnClose) {
+                btnClose[i].addEventListener('click', onButtonClose);
+            }
+        };
+    }
+
+    onlistenerClose() //вешаю слушатель на элементы коллекции basket."закрыть"
+
+    // ф-ия считает общую сумму корзины покупок
     function basketSum(array) {
         var basketSum = document.querySelector('.basket__summ-number')
         var sum = 0;
-        console.log(array);
         for (var i = 0; i < array.length; i++) {
             sum += array[i].cardPrice;
         }
