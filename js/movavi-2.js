@@ -6,23 +6,38 @@
             id: 0,
             cardImg: "img/коробка1.jpg",
             cardTitle: "Пакет видеопрограмм",
-            cardPrice: 1990,
+            cardPrice: 1890,
             cardText: "Пакет лучших программ для работы с видео! Редактируйте на монтажном столе. Конвертируйте в любые форматы. Создавайте слайд-шоу. Нарезайте видео. Захватывайте видео с экрана, камер и ТВ-тюнера. Записывайте DVD и диски Blu-ray."
         },
         {
             id: 1,
             cardImg: "img/коробка2.jpg",
-            cardTitle: "Пакет видеопрограмм",
-            cardPrice: 2590,
-            cardText: "Пакет лучших программ для работы с видео! Редактируйте на монтажном столе. Конвертируйте в любые форматы. Создавайте слайд-шоу. Нарезайте видео. Захватывайте видео с экрана, камер и ТВ-тюнера. Записывайте DVD и диски Blu-ray."
+            cardTitle: "Фотостудия Movavi",
+            cardPrice: 990,
+            cardText: "Полный набор инструментов для легкой фотообработки. Настраивайте параметры изображения вручную и улучшайте качество автоматически, добавляйте крутые фильтры и надписи. Обрезайте, отражайте и поворачивайте кадр, изменяйте размер фото. Удаляйте с фото лишние объекты и заменяйте скучные фоны. Обрабатывайте папки с фото в пакетном режиме, создавайте слайд-шоу с музыкой и переходами."
         },
         {
             id: 2,
             cardImg: "img/коробка3.jpg",
-            cardTitle: "Пакет видеопрограмм",
-            cardPrice: 1590,
-            cardText: "Пакет лучших программ для работы с видео! Редактируйте на монтажном столе. Конвертируйте в любые форматы. Создавайте слайд-шоу. Нарезайте видео. Захватывайте видео с экрана, камер и ТВ-тюнера. Записывайте DVD и диски Blu-ray."
+            cardTitle: "Movavi Фоторедактор",
+            cardPrice: 490,
+            cardText: "Улучшайте качество фото автоматически и вручную. Настраивайте резкость, контраст и цветность. Удаляйте с фотографий объекты, случайно попавшие в кадр. Заменяйте фон изображения. Добавляйте надписи. Выделяйте элементы при помощи удобных инструментов – кисти, волшебной палочки или лассо. Используйте штамп, чтобы устранять мелкие дефекты изображений."
+        },
+        {
+            id: 3,
+            cardImg: "img/коробка4.jpg",
+            cardTitle: "Movavi пакетный Фоторедактор",
+            cardPrice: 490,
+            cardText: "Обрабатывайте любое количество фотографий одним нажатием кнопки – уменьшайте целые фотоальбомы, переименовывайте файлы, конвертируйте формат и улучшайте качество изображений в пакетном режиме. Теперь вам не придется сохранять каждый файл по отдельности: просто примените изменения ко всем фото сразу и экспортируйте их с новыми настройками!"
+        },
+        {
+            id: 4,
+            cardImg: "img/коробка5.jpg",
+            cardTitle: "Захват видео с экрана",
+            cardPrice: 1490,
+            cardText: "Записывайте все, что происходит на экране вашего монитора: видеочаты, работу в программах и интернет-браузерах и многое другое. Сохраняйте скринкасты в любые популярные форматы и для мобильных устройств."
         }
+
     ];
 
     // ф-ия создает элементы для вставки в DOM
@@ -54,7 +69,7 @@
         imgWrap.appendChild(img);
         var textWrap = makeElement('div', 'goods__text-wrap');
         cardContainer.appendChild(textWrap);
-        var title = makeElement('h3', 'goods__title', cardDataItem.cardTitle);
+        var title = makeElement('h2', 'goods__title', cardDataItem.cardTitle);
         textWrap.appendChild(title);
         var text = makeElement('p', 'goods__text', cardDataItem.cardText);
         textWrap.appendChild(text);
@@ -62,7 +77,7 @@
         cardContainer.appendChild(buttonWrap);
         var priceWrap = makeElement('div', 'goods__price-wrap');
         buttonWrap.appendChild(priceWrap);
-        var price = makeElement('div', 'goods__price', cardDataItem.cardPrice);
+        var price = makeElement('div', 'goods__price', cardDataItem.cardPrice + ' руб.');
         priceWrap.appendChild(price);
         var button = makeElement('button', 'goods__button', 'В корзину!');
         button.classList.add('button');
@@ -83,7 +98,7 @@
 
     //Ф-ия обновляет состояние корзины и отрисовывает элементы корзины ссылаясь на элементы обновленного массива "basket"
     var updatCart = function() {
-        var basketList = document.querySelector('.basketList');
+        var basketList = document.querySelector('.basket__list');
         while (basketList.firstChild) {
             basketList.removeChild(basketList.firstChild)
         }
@@ -100,7 +115,7 @@
             basketItem.appendChild(itemImg);
             var itemText = makeElement('div', 'basket__item-text', basket[index].cardTitle);
             basketItem.appendChild(itemText);
-            var itemPrice = makeElement('div', 'basket__item-price', basket[index].cardPrice);
+            var itemPrice = makeElement('div', 'basket__item-price', basket[index].cardPrice + ' руб.');
             basketItem.appendChild(itemPrice);
             basketItem.querySelector('.basket__item-img').dataset.id = index;
         })
