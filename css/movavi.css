@@ -46,6 +46,9 @@ a {
 
 .page-main {
     padding: 5px 0;
+    padding-bottom: 45px;
+    display: flex;
+    align-items: flex-start;
 }
 
 .page-header {
@@ -60,6 +63,7 @@ a {
 .goods__item {
     display: flex;
     margin-top: 30px;
+    max-width: 760px;
 }
 
 .goods__img-wrap {
@@ -67,7 +71,7 @@ a {
 }
 
 .goods__text-wrap {
-    width: 32%;
+    width: 43%;
     margin: 0 25px;
 }
 
@@ -77,7 +81,7 @@ a {
 
 .goods__button-wrap {
     width: 200px;
-    margin: auto 5px;
+    margin: auto 0;
     padding-top: 25px;
     text-align: center;
     font-weight: bold;
@@ -124,9 +128,9 @@ a {
     border-radius: 5px;
     padding: 15px;
     min-height: 210px;
-    position: absolute;
+    position: sticky;
     right: 5px;
-    top: 50px;
+    top: 0;
     background: #fff;
 }
 
