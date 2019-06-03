@@ -174,6 +174,17 @@
             ' на сумму ' + basketSum.textContent);
     };
 
+
+    var onCheckout = function() {
+        var basketSum = document.querySelector('.basket__summ-number')
+        var productInBasket = basket.map(function(item) {
+            return item.title
+        })
+        var productInBasketStr = productInBasket.join()
+
+        alert('Вы добавили в корзину' + productInBasketStr + 'на сумму ' + basketSum.textContent + ' руб')
+    };
+
     // отрисовываем элементы каталога, проверяем localStorage, если есть элементы отрисовываем в "basket",
     products.forEach(addToProduct);
     getToStorage();
