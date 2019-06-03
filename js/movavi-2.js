@@ -134,9 +134,7 @@
         }
     };
 
-    // отрисовываем элементы каталога, проверяем localStorage, если есть элементы отрисовываем в "basket",
-    products.forEach(addToProduct);
-    getToStorage();
+
 
     //ф-ия удаляет элемент из коллекции "basket" и отрисовывает обновленную коллекцию в элементы корзины
     var removeToCard = function(evt) {
@@ -150,8 +148,6 @@
         })
     };
 
-    onlistenerClose() //вешаю слушатель на элементы коллекции basket."закрыть"
-
     // ф-ия считает общую сумму корзины покупок
     function basketSum(array) {
         var basketSum = document.querySelector('.basket__summ-number')
@@ -162,6 +158,7 @@
         basketSum.textContent = sum;
         return (basketSum)
     };
+
 
 
     // доработать алерт, окно алерт
@@ -176,6 +173,11 @@
             }) +
             ' на сумму ' + basketSum.textContent);
     };
+
+    // отрисовываем элементы каталога, проверяем localStorage, если есть элементы отрисовываем в "basket",
+    products.forEach(addToProduct);
+    getToStorage();
+    onlistenerClose() //вешаю слушатель на элементы коллекции basket."закрыть"
     var checkoutBtn = document.querySelector('.basket__button');
     checkoutBtn.addEventListener('click', onCheckout); // вызов алерт после клика кнопки "оформить заказ"
 })();
