@@ -2,40 +2,40 @@
 
 (function() {
     var basket = []; //масив отображаемый в корзине
-    var cardData = [{
+    var products = [{
             id: 0,
-            cardImg: "img/коробка1.jpg",
-            cardTitle: "Пакет видеопрограмм",
-            cardPrice: 1890,
-            cardText: "Пакет лучших программ для работы с видео! Редактируйте на монтажном столе. Конвертируйте в любые форматы. Создавайте слайд-шоу. Нарезайте видео. Захватывайте видео с экрана, камер и ТВ-тюнера. Записывайте DVD и диски Blu-ray."
+            image: "img/коробка1.jpg",
+            title: "Пакет видеопрограмм",
+            price: 1890,
+            description: "Пакет лучших программ для работы с видео! Редактируйте на монтажном столе. Конвертируйте в любые форматы. Создавайте слайд-шоу. Нарезайте видео. Захватывайте видео с экрана, камер и ТВ-тюнера. Записывайте DVD и диски Blu-ray."
         },
         {
             id: 1,
-            cardImg: "img/коробка2.jpg",
-            cardTitle: "Фотостудия Movavi",
-            cardPrice: 990,
-            cardText: "Полный набор инструментов для легкой фотообработки. Настраивайте параметры изображения вручную и улучшайте качество автоматически, добавляйте крутые фильтры и надписи. Обрезайте, отражайте и поворачивайте кадр, изменяйте размер фото. Удаляйте с фото лишние объекты и заменяйте скучные фоны. Обрабатывайте папки с фото в пакетном режиме, создавайте слайд-шоу с музыкой и переходами."
+            image: "img/коробка2.jpg",
+            title: "Фотостудия Movavi",
+            price: 990,
+            description: "Полный набор инструментов для легкой фотообработки. Настраивайте параметры изображения вручную и улучшайте качество автоматически, добавляйте крутые фильтры и надписи. Обрезайте, отражайте и поворачивайте кадр, изменяйте размер фото. Удаляйте с фото лишние объекты и заменяйте скучные фоны. Обрабатывайте папки с фото в пакетном режиме, создавайте слайд-шоу с музыкой и переходами."
         },
         {
             id: 2,
-            cardImg: "img/коробка3.jpg",
-            cardTitle: "Movavi Фоторедактор",
-            cardPrice: 490,
-            cardText: "Улучшайте качество фото автоматически и вручную. Настраивайте резкость, контраст и цветность. Удаляйте с фотографий объекты, случайно попавшие в кадр. Заменяйте фон изображения. Добавляйте надписи. Выделяйте элементы при помощи удобных инструментов – кисти, волшебной палочки или лассо. Используйте штамп, чтобы устранять мелкие дефекты изображений."
+            image: "img/коробка3.jpg",
+            title: "Movavi Фоторедактор",
+            price: 490,
+            description: "Улучшайте качество фото автоматически и вручную. Настраивайте резкость, контраст и цветность. Удаляйте с фотографий объекты, случайно попавшие в кадр. Заменяйте фон изображения. Добавляйте надписи. Выделяйте элементы при помощи удобных инструментов – кисти, волшебной палочки или лассо. Используйте штамп, чтобы устранять мелкие дефекты изображений."
         },
         {
             id: 3,
-            cardImg: "img/коробка4.jpg",
-            cardTitle: "Movavi пакетный Фоторедактор",
-            cardPrice: 490,
-            cardText: "Обрабатывайте любое количество фотографий одним нажатием кнопки – уменьшайте целые фотоальбомы, переименовывайте файлы, конвертируйте формат и улучшайте качество изображений в пакетном режиме. Теперь вам не придется сохранять каждый файл по отдельности: просто примените изменения ко всем фото сразу и экспортируйте их с новыми настройками!"
+            image: "img/коробка4.jpg",
+            title: "Movavi пакетный Фоторедактор",
+            price: 490,
+            description: "Обрабатывайте любое количество фотографий одним нажатием кнопки – уменьшайте целые фотоальбомы, переименовывайте файлы, конвертируйте формат и улучшайте качество изображений в пакетном режиме. Теперь вам не придется сохранять каждый файл по отдельности: просто примените изменения ко всем фото сразу и экспортируйте их с новыми настройками!"
         },
         {
             id: 4,
-            cardImg: "img/коробка5.jpg",
-            cardTitle: "Захват видео с экрана",
-            cardPrice: 1490,
-            cardText: "Записывайте все, что происходит на экране вашего монитора: видеочаты, работу в программах и интернет-браузерах и многое другое. Сохраняйте скринкасты в любые популярные форматы и для мобильных устройств."
+            image: "img/коробка5.jpg",
+            title: "Захват видео с экрана",
+            price: 1490,
+            description: "Записывайте все, что происходит на экране вашего монитора: видеочаты, работу в программах и интернет-браузерах и многое другое. Сохраняйте скринкасты в любые популярные форматы и для мобильных устройств."
         }
     ];
 
@@ -52,45 +52,45 @@
     //ф-ия добавляет элементы в массив "basket" и обновляет его
     var addToCard = function(evt) {
         var id = evt.target.dataset.id;
-        basket.push(cardData[id]); //добавляет элементы в коллекцию корзины "basket"
+        basket.push(products[id]); //добавляет элементы в коллекцию корзины "basket"
         updatCart(); //обновление корзины
     };
 
     //ф-ия создает карточки каталога, и навешивает слушатель на кнопку "Вкорзину"
-    cardData.forEach(function(cardDataItem, index) {
-        var ListElement = document.querySelector('.goods');
-        var cardContainer = makeElement('div', 'goods__item');
-        ListElement.appendChild(cardContainer);
+    function addToProduct(productsItem, index) {
+        var product = document.querySelector('.goods');
+        var container = makeElement('div', 'goods__item');
+        product.appendChild(container);
         var imgWrap = makeElement('div', 'goods__img-wrap');
-        cardContainer.appendChild(imgWrap);
+        container.appendChild(imgWrap);
         var img = makeElement('img', 'goods__img');
-        img.src = cardDataItem.cardImg;
+        img.src = productsItem.image;
         imgWrap.appendChild(img);
         var textWrap = makeElement('div', 'goods__text-wrap');
-        cardContainer.appendChild(textWrap);
-        var title = makeElement('h2', 'goods__title', cardDataItem.cardTitle);
+        container.appendChild(textWrap);
+        var title = makeElement('h2', 'goods__title', productsItem.title);
         textWrap.appendChild(title);
-        var text = makeElement('p', 'goods__text', cardDataItem.cardText);
+        var text = makeElement('p', 'goods__text', productsItem.description);
         textWrap.appendChild(text);
         var buttonWrap = makeElement('div', 'goods__button-wrap');
-        cardContainer.appendChild(buttonWrap);
+        container.appendChild(buttonWrap);
         var priceWrap = makeElement('div', 'goods__price-wrap');
         buttonWrap.appendChild(priceWrap);
-        var price = makeElement('div', 'goods__price', cardDataItem.cardPrice + ' руб.');
+        var price = makeElement('div', 'goods__price', productsItem.price + ' руб.');
         priceWrap.appendChild(price);
         var button = makeElement('button', 'goods__button', 'В корзину!');
         button.classList.add('button');
         buttonWrap.appendChild(button);
         button.addEventListener('click', addToCard); //Слушатель на кнопку "В корзину"
-        cardContainer.querySelector('.goods__button').dataset.id = index; // задаем индекс элементу
-    });
+        container.querySelector('.goods__button').dataset.id = index; // задаем индекс элементу
+    };
 
     //ф-ия вешает слушатель на кнопку "закрыть"
     var onlistenerClose = function() {
         var btnClose = document.querySelectorAll('.basket__item-img');
         btnClose.forEach(function(btnCloseItem) {
             if (btnClose) {
-                btnCloseItem.addEventListener('click', onButtonClose);
+                btnCloseItem.addEventListener('click', removeToCard);
             }
         })
     };
@@ -102,18 +102,15 @@
             basketList.removeChild(basketList.firstChild)
         }
         basket.forEach(function(basketItem, index) {
-            console.log(basketItem.cardTitle);
-            console.log(basket[index].cardTitle); // Есть вопрос для изучения
-            console.log(index);
             var basketItem = makeElement('div', 'basket__item');
             basketList.appendChild(basketItem);
             var itemImg = makeElement('img', 'basket__item-img');
             itemImg.src = 'img/крестик.png';
             itemImg.alt = 'Кнопка закрыть';
             basketItem.appendChild(itemImg);
-            var itemText = makeElement('div', 'basket__item-text', basket[index].cardTitle);
+            var itemText = makeElement('div', 'basket__item-text', basket[index].title);
             basketItem.appendChild(itemText);
-            var itemPrice = makeElement('div', 'basket__item-price', basket[index].cardPrice + ' руб.');
+            var itemPrice = makeElement('div', 'basket__item-price', basket[index].price + ' руб.');
             basketItem.appendChild(itemPrice);
             basketItem.querySelector('.basket__item-img').dataset.id = index;
         })
@@ -134,16 +131,15 @@
         if (returnBasket) {
             basket = returnBasket;
             updatCart()
-        } else {
-            console.log('LocalStorage пустой');
         }
     };
 
-    //  проверяем localStorage, если есть элементы отрисовываем в "basket"
+    // отрисовываем элементы каталога, проверяем localStorage, если есть элементы отрисовываем в "basket",
+    products.forEach(addToProduct);
     getToStorage();
 
     //ф-ия удаляет элемент из коллекции "basket" и отрисовывает обновленную коллекцию в элементы корзины
-    var onButtonClose = function(evt) {
+    var removeToCard = function(evt) {
         var btnClose = document.querySelectorAll('.basket__item-img');
         var id = evt.target.dataset.id;
         btnClose.forEach(function(btnCloseItem) {
@@ -161,9 +157,25 @@
         var basketSum = document.querySelector('.basket__summ-number')
         var sum = 0;
         array.forEach(function(arrayItem) {
-            sum += arrayItem.cardPrice;
+            sum += arrayItem.price;
         })
         basketSum.textContent = sum;
         return (basketSum)
     };
+
+
+    // доработать алерт, окно алерт
+
+    var onCheckout = function() {
+        var basketSum = document.querySelector('.basket__summ-number')
+        var titlePrduct = document.querySelectorAll('.basket__item-text');
+
+        alert('Вы добавили в корзину ' +
+            titlePrduct.forEach(function(title) {
+                title.textContent
+            }) +
+            ' на сумму ' + basketSum.textContent);
+    };
+    var checkoutBtn = document.querySelector('.basket__button');
+    checkoutBtn.addEventListener('click', onCheckout); // вызов алерт после клика кнопки "оформить заказ"
 })();
