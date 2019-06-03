@@ -58,8 +58,6 @@
     var addToCard = function(evt) {
         var id = evt.target.dataset.id;
         basket.push(products[id]); //добавляет элементы в коллекцию корзины "basket"
-        console.log(basket);
-        console.log(products[id]);
         updatCart(); //обновление корзины
 
     };
@@ -89,8 +87,7 @@
         // button.classList.add('button');
         buttonWrap.appendChild(button);
         button.addEventListener('click', addToCard); //Слушатель на кнопку "В корзину"
-        basketItem.querySelector('.basket__item-img').dataset.id = products[id];
-        basketItem.appendChild(itemPrice);
+        container.querySelector('.goods__button').dataset.id = productsItem.id; // задаем индекс элементу;
     };
 
     //ф-ия вешает слушатель на кнопку "закрыть"
