@@ -37,7 +37,6 @@
             cardPrice: 1490,
             cardText: "Записывайте все, что происходит на экране вашего монитора: видеочаты, работу в программах и интернет-браузерах и многое другое. Сохраняйте скринкасты в любые популярные форматы и для мобильных устройств."
         }
-
     ];
 
     // ф-ия создает элементы для вставки в DOM
@@ -50,7 +49,7 @@
         return element;
     };
 
-    //ф-ия отрисовывает обновленные элементы из массива "basket" и навешивание слушателя на обновленные элементы basket."закрыть"
+    //ф-ия добавляет элементы в массив "basket" и обновляет его
     var addToCard = function(evt) {
         var id = evt.target.dataset.id;
         basket.push(cardData[id]); //добавляет элементы в коллекцию корзины "basket"
@@ -111,7 +110,6 @@
             var itemImg = makeElement('img', 'basket__item-img');
             itemImg.src = 'img/крестик.png';
             itemImg.alt = 'Кнопка закрыть';
-            // itemImg.addEventListener('click', onButtonClose);
             basketItem.appendChild(itemImg);
             var itemText = makeElement('div', 'basket__item-text', basket[index].cardTitle);
             basketItem.appendChild(itemText);
