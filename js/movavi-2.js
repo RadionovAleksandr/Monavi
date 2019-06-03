@@ -40,9 +40,14 @@
     ];
 
     // ф-ия создает элементы для вставки в DOM
-    var makeElement = function(tagName, className, text) {
+    var createElement = function(tagName, className, text) {
         var element = document.createElement(tagName);
-        element.classList.add(className);
+        var classNames = className.split(' ');
+        classNames.forEach(function(classNamesItem) {
+
+
+            element.classList.add(classNamesItem)
+        });
         if (text) {
             element.textContent = text;
         }
@@ -53,44 +58,47 @@
     var addToCard = function(evt) {
         var id = evt.target.dataset.id;
         basket.push(products[id]); //добавляет элементы в коллекцию корзины "basket"
+        console.log(basket);
+        console.log(products[id]);
         updatCart(); //обновление корзины
+
     };
 
     //ф-ия создает карточки каталога, и навешивает слушатель на кнопку "Вкорзину"
-    function addToProduct(productsItem, index) {
-        var product = document.querySelector('.goods');
-        var container = makeElement('div', 'goods__item');
+    function createProduct(productsItem) {
+        var container = createElement('div', 'goods__item');
         product.appendChild(container);
-        var imgWrap = makeElement('div', 'goods__img-wrap');
+        var imgWrap = createElement('div', 'goods__img-wrap');
         container.appendChild(imgWrap);
-        var img = makeElement('img', 'goods__img');
+        var img = createElement('img', 'goods__img');
         img.src = productsItem.image;
         imgWrap.appendChild(img);
-        var textWrap = makeElement('div', 'goods__text-wrap');
+        var textWrap = createElement('div', 'goods__text-wrap');
         container.appendChild(textWrap);
-        var title = makeElement('h2', 'goods__title', productsItem.title);
+        var title = createElement('h2', 'goods__title', productsItem.title);
         textWrap.appendChild(title);
-        var text = makeElement('p', 'goods__text', productsItem.description);
+        var text = createElement('p', 'goods__text', productsItem.description);
         textWrap.appendChild(text);
-        var buttonWrap = makeElement('div', 'goods__button-wrap');
+        var buttonWrap = createElement('div', 'goods__button-wrap');
         container.appendChild(buttonWrap);
-        var priceWrap = makeElement('div', 'goods__price-wrap');
+        var priceWrap = createElement('div', 'goods__price-wrap');
         buttonWrap.appendChild(priceWrap);
-        var price = makeElement('div', 'goods__price', productsItem.price + ' руб.');
+        var price = createElement('div', 'goods__price', productsItem.price + ' руб.');
         priceWrap.appendChild(price);
-        var button = makeElement('button', 'goods__button', 'В корзину!');
-        button.classList.add('button');
+        var button = createElement('button', 'goods__button button', 'В корзину!');
+        // button.classList.add('button');
         buttonWrap.appendChild(button);
         button.addEventListener('click', addToCard); //Слушатель на кнопку "В корзину"
-        container.querySelector('.goods__button').dataset.id = index; // задаем индекс элементу
+        basketItem.querySelector('.basket__item-img').dataset.id = products[id];
+        basketItem.appendChild(itemPrice);
     };
 
     //ф-ия вешает слушатель на кнопку "закрыть"
-    var onlistenerClose = function() {
+    var onClickRemoveFromBasket = function() {
         var btnClose = document.querySelectorAll('.basket__item-img');
         btnClose.forEach(function(btnCloseItem) {
             if (btnClose) {
-                btnCloseItem.addEventListener('click', removeToCard);
+                btnCloseItem.addEventListener('click', removeFromBasket);
             }
         })
     };
@@ -102,20 +110,20 @@
             basketList.removeChild(basketList.firstChild)
         }
         basket.forEach(function(basketItem, index) {
-            var basketItem = makeElement('div', 'basket__item');
+            var basketItem = createElement('div', 'basket__item');
             basketList.appendChild(basketItem);
-            var itemImg = makeElement('img', 'basket__item-img');
+            var itemImg = createElement('img', 'basket__item-img');
             itemImg.src = 'img/крестик.png';
             itemImg.alt = 'Кнопка закрыть';
             basketItem.appendChild(itemImg);
-            var itemText = makeElement('div', 'basket__item-text', basket[index].title);
+            var itemText = createElement('div', 'basket__item-text', basket[index].title);
             basketItem.appendChild(itemText);
-            var itemPrice = makeElement('div', 'basket__item-price', basket[index].price + ' руб.');
+            var itemPrice = createElement('div', 'basket__item-price', basket[index].price + ' руб.');
             basketItem.appendChild(itemPrice);
             basketItem.querySelector('.basket__item-img').dataset.id = index;
         })
         saveToStorage(); //запишем в localStorage обновленный список 
-        onlistenerClose(); // вешаю слушатели на обновленные кнопки "Закрыть" элементов корзины
+        onClickRemoveFromBasket(); // вешаю слушатели на обновленные кнопки "Закрыть" элементов корзины
         basketSum(basket); //обновляем общую сумму
     };
 
@@ -134,10 +142,8 @@
         }
     };
 
-
-
     //ф-ия удаляет элемент из коллекции "basket" и отрисовывает обновленную коллекцию в элементы корзины
-    var removeToCard = function(evt) {
+    var removeFromBasket = function(evt) {
         var btnClose = document.querySelectorAll('.basket__item-img');
         var id = evt.target.dataset.id;
         btnClose.forEach(function(btnCloseItem) {
@@ -159,36 +165,20 @@
         return (basketSum)
     };
 
-
-
-    // доработать алерт, окно алерт
-
-    var onCheckout = function() {
-        var basketSum = document.querySelector('.basket__summ-number')
-        var titlePrduct = document.querySelectorAll('.basket__item-text');
-
-        alert('Вы добавили в корзину ' +
-            titlePrduct.forEach(function(title) {
-                title.textContent
-            }) +
-            ' на сумму ' + basketSum.textContent);
-    };
-
-
+    //  окно alert с покупками
     var onCheckout = function() {
         var basketSum = document.querySelector('.basket__summ-number')
         var productInBasket = basket.map(function(item) {
             return item.title
         })
         var productInBasketStr = productInBasket.join()
-
         alert('Вы добавили в корзину' + productInBasketStr + 'на сумму ' + basketSum.textContent + ' руб')
     };
 
     // отрисовываем элементы каталога, проверяем localStorage, если есть элементы отрисовываем в "basket",
-    products.forEach(addToProduct);
+    var product = document.querySelector('.goods');
+    products.forEach(createProduct);
     getToStorage();
-    onlistenerClose() //вешаю слушатель на элементы коллекции basket."закрыть"
     var checkoutBtn = document.querySelector('.basket__button');
     checkoutBtn.addEventListener('click', onCheckout); // вызов алерт после клика кнопки "оформить заказ"
 })();
