@@ -44,8 +44,6 @@
         var element = document.createElement(tagName);
         var classNames = className.split(' ');
         classNames.forEach(function(classNamesItem) {
-
-
             element.classList.add(classNamesItem)
         });
         if (text) {
@@ -59,7 +57,6 @@
         var id = evt.target.dataset.id;
         basket.push(products[id]); //добавляет элементы в коллекцию корзины "basket"
         updatCart(); //обновление корзины
-
     };
 
     //ф-ия создает карточки каталога, и навешивает слушатель на кнопку "Вкорзину"
@@ -94,9 +91,7 @@
     var onClickRemoveFromBasket = function() {
         var btnClose = document.querySelectorAll('.basket__item-img');
         btnClose.forEach(function(btnCloseItem) {
-            if (btnClose) {
-                btnCloseItem.addEventListener('click', removeFromBasket);
-            }
+            btnCloseItem.addEventListener('click', removeFromBasket);
         })
     };
 
