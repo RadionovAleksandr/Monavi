@@ -168,8 +168,8 @@
         var productInBasket = basket.map(function(item) {
             return item.title
         })
-        var productInBasketStr = productInBasket.join()
-        alert('Вы добавили в корзину' + productInBasketStr + 'на сумму ' + basketSum.textContent + ' руб')
+        var productInBasketStr = productInBasket.join("; ")
+        alert('Вы добавили в корзину ' + productInBasketStr + ' на сумму ' + basketSum.textContent + ' руб')
     };
 
     // отрисовываем элементы каталога, проверяем localStorage, если есть элементы отрисовываем в "basket",
